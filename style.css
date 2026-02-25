@@ -33,7 +33,7 @@ body {
     min-height: 100vh;
 }
 
-/* Texture & Graphics */
+/* ---- Grain texture overlay ---- */
 .grain {
     position: fixed;
     top: 0;
@@ -41,34 +41,204 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1000;
-    opacity: 0.15;
-    /* Increased opacity for grain contrast on dark */
+    z-index: 999;
+    opacity: 0.06;
     background: url('https://grainy-gradients.vercel.app/noise.svg');
     filter: invert(1);
-    /* Invert noise for dark mode */
 }
 
-.bloom {
-    position: fixed;
-    top: -30vh;
-    left: -30vw;
-    width: 160vw;
-    height: 160vh;
-    background: radial-gradient(circle at 50% 50%, #111111, transparent 70%);
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.8;
-    animation: bloom-move 25s infinite alternate ease-in-out;
+
+
+/* ---- Social Navigation Bar ---- */
+.social-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0.8rem 2rem;
+    background: rgba(255, 255, 255, 0.12);
+    /* Increased opacity */
+    backdrop-filter: blur(24px);
+    /* Slightly stronger blur */
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    /* More visible border */
+    border-radius: 100px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 20px rgba(255, 255, 255, 0.05);
+    /* Added subtle outer glow */
+    transition: all 0.4s var(--transition-subtle);
 }
 
-@keyframes bloom-move {
-    from {
-        transform: translate(-8%, -8%);
+.social-bar.top {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1000;
+}
+
+.social-bar.bottom {
+    width: fit-content;
+    margin: 0 auto 4rem auto;
+    position: relative;
+    z-index: 10;
+}
+
+.social-bar a {
+    text-decoration: none;
+    transition: transform 0.3s var(--transition-subtle), color 0.3s ease, filter 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.social-bar a svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.social-bar a:hover {
+    transform: scale(1.25) translateY(-2px);
+    color: #fff;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+}
+
+@media (max-width: 768px) {
+    .social-bar {
+        padding: 0.6rem 1.2rem;
+        gap: 1rem;
     }
 
-    to {
-        transform: translate(8%, 8%);
+    .social-bar.top {
+        top: 1rem;
+    }
+}
+
+/* ---- Dynamic Orb Background ---- */
+.bg-orbs {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.orb-1 {
+    width: 60vw;
+    height: 60vw;
+    top: -25%;
+    left: -15%;
+    background: radial-gradient(circle, rgba(25, 132, 231, 0.5) 0%, transparent 70%);
+    animation: orb-drift-1 22s infinite alternate ease-in-out;
+}
+
+.orb-2 {
+    width: 50vw;
+    height: 50vw;
+    top: 25%;
+    right: -15%;
+    background: radial-gradient(circle, rgba(59, 54, 54, 0.4) 0%, transparent 70%);
+    animation: orb-drift-2 25s infinite alternate ease-in-out;
+}
+
+.orb-3 {
+    width: 45vw;
+    height: 45vw;
+    bottom: -15%;
+    left: 15%;
+    background: radial-gradient(circle, rgba(10, 10, 10, 0.35) 0%, transparent 70%);
+    animation: orb-drift-3 28s infinite alternate ease-in-out;
+}
+
+.orb-4 {
+    width: 35vw;
+    height: 35vw;
+    top: 55%;
+    left: -10%;
+    background: radial-gradient(circle, rgba(7, 9, 12, 0.25) 0%, transparent 70%);
+    animation: orb-drift-4 24s infinite alternate ease-in-out;
+}
+
+@keyframes orb-drift-1 {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: translate(8vw, 12vh) scale(1.1);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translate(15vw, 5vh) scale(0.95);
+        opacity: 0.7;
+    }
+}
+
+@keyframes orb-drift-2 {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: translate(-10vw, -8vh) scale(1.15);
+        opacity: 0.85;
+    }
+
+    100% {
+        transform: translate(-5vw, 12vh) scale(0.9);
+        opacity: 0.65;
+    }
+}
+
+@keyframes orb-drift-3 {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translate(12vw, -10vh) scale(1.1);
+        opacity: 0.75;
+    }
+
+    100% {
+        transform: translate(-8vw, -5vh) scale(1.05);
+        opacity: 0.55;
+    }
+}
+
+@keyframes orb-drift-4 {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: translate(8vw, -14vh) scale(1.2);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translate(14vw, 8vh) scale(0.9);
+        opacity: 0.4;
     }
 }
 
@@ -284,26 +454,46 @@ p {
     opacity: 1;
 }
 
-.calendar-months {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
+.calendar-scroll-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.calendar-inner {
+    display: flex;
+    flex-direction: column;
+    min-width: max-content;
+    /* Ensure it doesn't squish */
+}
+
+.calendar-body {
+    display: flex;
     gap: 0.5rem;
-    margin-bottom: 1rem;
-    padding-left: 2rem;
+}
+
+
+
+.calendar-months {
+    display: flex;
+    position: relative;
+    height: 15px;
+    margin-bottom: 0.25rem;
+    margin-left: 0;
 }
 
 .calendar-months span {
     font-size: 0.75rem;
     color: rgba(255, 255, 255, 0.6);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
+    font-weight: 500;
+    position: absolute;
 }
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(53, 1fr);
-    grid-auto-rows: 12px;
+    grid-template-rows: repeat(7, 12px);
+    grid-auto-columns: 12px;
+    grid-auto-flow: column;
     gap: 3px;
     margin-bottom: 1.5rem;
     position: relative;
@@ -333,24 +523,24 @@ p {
 }
 
 .calendar-day[data-level="1"] {
-    background: rgba(0, 122, 255, 0.2);
-    border-color: rgba(0, 122, 255, 0.3);
+    background: #0e4429;
+    border-color: rgba(0, 255, 0, 0.1);
 }
 
 .calendar-day[data-level="2"] {
-    background: rgba(0, 122, 255, 0.4);
-    border-color: rgba(0, 122, 255, 0.5);
+    background: #006d32;
+    border-color: rgba(0, 255, 0, 0.2);
 }
 
 .calendar-day[data-level="3"] {
-    background: rgba(0, 122, 255, 0.6);
-    border-color: rgba(0, 122, 255, 0.7);
+    background: #26a641;
+    border-color: rgba(0, 255, 0, 0.3);
 }
 
 .calendar-day[data-level="4"] {
-    background: rgba(0, 212, 255, 0.8);
-    border-color: rgba(0, 212, 255, 0.9);
-    box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+    background: #39d353;
+    border-color: rgba(0, 255, 0, 0.4);
+    box-shadow: 0 0 10px rgba(57, 211, 83, 0.3);
 }
 
 .calendar-legend {
@@ -385,20 +575,19 @@ p {
 }
 
 .legend-item[data-level="1"] {
-    background: rgba(0, 122, 255, 0.2);
+    background: #0e4429;
 }
 
 .legend-item[data-level="2"] {
-    background: rgba(0, 122, 255, 0.4);
+    background: #006d32;
 }
 
 .legend-item[data-level="3"] {
-    background: rgba(0, 122, 255, 0.6);
+    background: #26a641;
 }
 
 .legend-item[data-level="4"] {
-    background: rgba(0, 212, 255, 0.8);
-    box-shadow: 0 0 6px rgba(0, 212, 255, 0.3);
+    background: #39d353;
 }
 
 /* Skills Grid */
@@ -494,9 +683,86 @@ p {
 }
 
 /* Section Items with Enhanced Glassmorphism */
-.project-item,
+.project-item {
+    perspective: 1000px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    transition: all 0.5s var(--transition-subtle);
+    position: relative;
+    height: 300px;
+    /* Fixed height for flip stability */
+    box-shadow: none;
+}
+
+.project-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.project-item:hover .project-inner {
+    transform: rotateY(180deg);
+}
+
+.project-front,
+.project-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.project-front {
+    z-index: 2;
+}
+
+.project-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(0, 212, 255, 0.05));
+    align-items: center;
+    text-align: center;
+    border-color: rgba(0, 122, 255, 0.4);
+}
+
+.project-link {
+    margin-top: 1.5rem;
+    color: #00d4ff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(0, 122, 255, 0.1);
+    border: 1px solid rgba(0, 122, 255, 0.3);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.project-link:hover {
+    background: rgba(0, 122, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 122, 255, 0.3);
+    transform: scale(1.05);
+}
+
 .exp-item,
 .edu-item {
+    background: rgba(255, 255, 0, 0.04);
+    /* Specific subtle tint for distinction if desired, or keep white */
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -510,7 +776,7 @@ p {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.project-item::before,
+.project-inner::before,
 .exp-item::before,
 .edu-item::before {
     content: '';
@@ -524,7 +790,6 @@ p {
     transition: opacity 0.5s var(--transition-subtle);
 }
 
-.project-item::after,
 .exp-item::after,
 .edu-item::after {
     content: '';
@@ -538,7 +803,6 @@ p {
     transition: all 0.8s ease;
 }
 
-.project-item:hover,
 .exp-item:hover,
 .edu-item:hover {
     transform: translateY(-12px) scale(1.01);
@@ -550,13 +814,11 @@ p {
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.project-item:hover::before,
 .exp-item:hover::before,
 .edu-item:hover::before {
     opacity: 1;
 }
 
-.project-item:hover::after,
 .exp-item:hover::after,
 .edu-item:hover::after {
     left: 100%;
@@ -570,26 +832,22 @@ p {
     margin-bottom: 1rem;
 }
 
-.project-item h3,
 .exp-item h3,
 .edu-item h3 {
     transition: all 0.3s ease;
 }
 
-.project-item:hover h3,
 .exp-item:hover h3,
 .edu-item:hover h3 {
     color: #00d4ff;
     text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
 }
 
-.project-item p,
 .exp-item p,
 .edu-item p {
     transition: color 0.3s ease;
 }
 
-.project-item:hover p,
 .exp-item:hover p,
 .edu-item:hover p {
     color: rgba(255, 255, 255, 0.9);
@@ -671,6 +929,138 @@ p {
     transition-delay: 0.3s;
 }
 
+/* ======================================================== */
+/*  HOBBIES SECTION                                         */
+/* ======================================================== */
+
+.hobby-block {
+    margin-bottom: 3.5rem;
+}
+
+.hobby-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.hobby-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+}
+
+.hobby-header h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-color);
+    letter-spacing: -0.01em;
+}
+
+.hobby-desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.25rem;
+    max-width: 55ch;
+}
+
+/* ---- Horizontal scroll album track ---- */
+.hobby-album-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+    padding-bottom: 0.75rem;
+    border-radius: 16px;
+}
+
+.hobby-album-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+
+.hobby-album-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+}
+
+.hobby-album {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    /* lets flex be wider than parent */
+    padding: 0.25rem 0.25rem 0.5rem;
+}
+
+/* Individual photo slot */
+.album-slot {
+    width: 240px;
+    height: 180px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    border: 2px dashed rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.album-slot:hover {
+    border-color: rgba(0, 122, 255, 0.5);
+    background: rgba(0, 122, 255, 0.06);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 122, 255, 0.15);
+}
+
+/* Slot empty-state placeholder */
+.album-slot label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    pointer-events: none;
+    user-select: none;
+}
+
+.album-slot label::before {
+    content: '+';
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.15);
+    text-align: center;
+    margin-bottom: 0.3rem;
+    line-height: 1;
+}
+
+/* When an image is placed inside the slot */
+.album-slot img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 14px;
+    transition: transform 0.5s ease;
+}
+
+.album-slot:hover img {
+    transform: scale(1.05);
+}
+
+/* Hide the placeholder when image is present */
+.album-slot img~label {
+    display: none;
+}
+
+
 @media (max-width: 600px) {
     .wrapper {
         padding: 2rem;
@@ -717,25 +1107,22 @@ p {
 
     /* Responsive GitHub Calendar */
     .calendar-container {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
-    .calendar-months {
-        grid-template-columns: repeat(12, 1fr);
-        gap: 0.25rem;
+    .calendar-days {
         font-size: 0.6rem;
-        padding-left: 0;
+        width: 1.5rem;
     }
 
-    .calendar-grid {
-        grid-template-columns: repeat(53, 1fr);
-        grid-auto-rows: 8px;
-        gap: 2px;
+    .calendar-months span {
+        font-size: 0.6rem;
     }
 
     .calendar-legend {
         justify-content: center;
         gap: 0.3rem;
+        flex-wrap: wrap;
     }
 
     .legend-item {
