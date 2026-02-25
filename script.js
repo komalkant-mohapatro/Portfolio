@@ -227,4 +227,55 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     generateContributionCalendar();
+
+    // ============================================================
+    //  LIGHTBOX LOGIC
+    // ============================================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const closeBtn = document.querySelector('.close-lightbox');
+    const hobbyImages = document.querySelectorAll('.hobby-album img');
+
+    const openLightbox = (img) => {
+        lightboxImg.src = img.src;
+        lightboxCaption.textContent = img.alt || 'Hobby Photo';
+        lightbox.style.display = 'flex';
+        // Force reflow for transition
+        lightbox.offsetHeight;
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    };
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+        }, 400); // Match CSS transition
+    };
+
+    hobbyImages.forEach(img => {
+        img.addEventListener('click', () => openLightbox(img));
+        img.style.cursor = 'zoom-in';
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeLightbox);
+    }
+
+    if (lightbox) {
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+
 });
