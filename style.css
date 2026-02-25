@@ -1009,6 +1009,13 @@ p {
     transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
     cursor: pointer;
     position: relative;
+    user-select: none;
+}
+
+/* Vertical 3:4 ratio */
+.album-slot.vertical {
+    width: 210px;
+    height: 280px;
 }
 
 .album-slot:hover {
@@ -1040,8 +1047,9 @@ p {
     line-height: 1;
 }
 
-/* When an image is placed inside the slot */
-.album-slot img {
+/* When an image/video is placed inside the slot */
+.album-slot img,
+.album-slot video {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -1051,12 +1059,19 @@ p {
     transition: transform 0.5s ease;
 }
 
-.album-slot:hover img {
+.album-slot video {
+    pointer-events: none;
+    /* Let the slot handle the click */
+}
+
+.album-slot:hover img,
+.album-slot:hover video {
     transform: scale(1.05);
 }
 
-/* Hide the placeholder when image is present */
-.album-slot img~label {
+/* Hide the placeholder when content is present */
+.album-slot img~label,
+.album-slot video[src]:not([src=""])~label {
     display: none;
 }
 
@@ -1166,13 +1181,16 @@ p {
     gap: 1.5rem;
 }
 
-.lightbox-content img {
+.lightbox-content img,
+.lightbox-content video {
     max-width: 100%;
     max-height: 80vh;
     border-radius: 12px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
     object-fit: contain;
+    display: none;
+    /* Hidden by default, JS will show one of them */
 }
 
 #lightbox-caption {

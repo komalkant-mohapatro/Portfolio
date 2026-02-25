@@ -145,59 +145,42 @@
         <section class="section hobbies">
             <h2 class="reveal">Hobbies</h2>
 
-            <!-- 1. Singing -->
+            <!-- Consolidated Music & Performances Section -->
             <div class="hobby-block reveal">
                 <div class="hobby-header">
-                    <span class="hobby-icon">🎤</span>
-                    <h3>Singing</h3>
+                    <span class="hobby-icon">�</span>
+                    <h3>Music & Performances</h3>
                 </div>
-                <p class="hobby-desc">Expressing emotions through music and melodies.</p>
+                <p class="hobby-desc">Vocal performances and instrumental sessions captured in vertical 3:4 format.</p>
                 <div class="hobby-album-scroll">
                     <div class="hobby-album">
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                            <!-- <img src="path/to/your/photo.jpg" alt="Singing"> -->
+                        <!-- 4 Photo Slots (Vertical 3:4) -->
+                        <div class="album-slot vertical">
+                            <img src="Profile Photo/Soulful.jpg" alt="soulful performances">
+                            <label>Add Photo (3:4)</label>
                         </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
+                        <div class="album-slot vertical video-slot">
+                            <label>Add Video (3:4)</label>
+                            <video muted loop playsinline src="Profile Photo/lv_0_20251222135934.mp4"></video>
                         </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
+                        <div class="album-slot vertical">
+                            <img src="Profile Photo/Mr. Sankalp.jpg" alt="soulful performances">
+                            <label>Add Photo (3:4)</label>
                         </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
+                        <div class="album-slot vertical video-slot">
+                            <label>Add Video (3:4)</label>
+                            <video muted loop playsinline src="Profile Photo/lv_0_20251102124246.mp4"></video>
                         </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
+                        <div class="album-slot vertical">
+                            <img src="Profile Photo/DSC_0876.jpg" alt="soulful performances">
+                            <label>Add Photo (3:4)</label>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. Playing Instrument -->
-            <div class="hobby-block reveal">
-                <div class="hobby-header">
-                    <span class="hobby-icon">🎸</span>
-                    <h3>Playing Instrument</h3>
-                </div>
-                <p class="hobby-desc">Creating rhythms and melodies through instrumental music.</p>
-                <div class="hobby-album-scroll">
-                    <div class="hobby-album">
-                        <div class="album-slot">
-                            <label>Add Photo</label>
+                        <div class="album-slot vertical video-slot">
+                            <label>Add Video (3:4)</label>
+                            <video muted loop playsinline src="Profile Photo/Murli Ki Tanno Si.mp4"></video>
                         </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -206,7 +189,7 @@
             <div class="hobby-block reveal">
                 <div class="hobby-header">
                     <span class="hobby-icon">📷</span>
-                    <h3>Photography</h3>
+                    <h3>Cinematography and Seasonal Astrophotography</h3>
                 </div>
                 <p class="hobby-desc">Capturing moments, stories and the beauty of everyday life.</p>
                 <div class="hobby-album-scroll">
@@ -234,35 +217,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- 4. Astrophotography -->
-            <div class="hobby-block reveal">
-                <div class="hobby-header">
-                    <span class="hobby-icon">🔭</span>
-                    <h3>Astrophotography</h3>
-                </div>
-                <p class="hobby-desc">Capturing the cosmos — planets, stars and deep sky objects.</p>
-                <div class="hobby-album-scroll">
-                    <div class="hobby-album">
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
-                        <div class="album-slot">
-                            <label>Add Photo</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <nav class="social-bar bottom">
             <a href="https://linkedin.com/in/shakrashamim" target="_blank" title="LinkedIn"><svg
@@ -302,6 +256,7 @@
         <span class="close-lightbox">&times;</span>
         <div class="lightbox-content">
             <img id="lightbox-img" src="" alt="Enlarged view">
+            <video id="lightbox-video" controls playsinline src=""></video>
             <p id="lightbox-caption"></p>
         </div>
     </div>

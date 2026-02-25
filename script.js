@@ -233,33 +233,55 @@ document.addEventListener('DOMContentLoaded', () => {
     // ============================================================
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxVideo = document.getElementById('lightbox-video');
     const lightboxCaption = document.getElementById('lightbox-caption');
     const closeBtn = document.querySelector('.close-lightbox');
-    const hobbyImages = document.querySelectorAll('.hobby-album img');
+    const albumSlots = document.querySelectorAll('.album-slot');
 
-    const openLightbox = (img) => {
-        lightboxImg.src = img.src;
-        lightboxCaption.textContent = img.alt || 'Hobby Photo';
+    const openLightbox = (element) => {
+        const isVideo = element.tagName.toLowerCase() === 'video';
+
+        // Hide both by default
+        lightboxImg.style.display = 'none';
+        lightboxVideo.style.display = 'none';
+
+        if (isVideo) {
+            if (!element.src || element.src === window.location.href) return;
+            lightboxVideo.src = element.src;
+            lightboxVideo.style.display = 'block';
+            lightboxCaption.textContent = element.getAttribute('data-caption') || 'Music Performance';
+            lightboxVideo.play();
+        } else {
+            if (!element.src || element.src === window.location.href) return;
+            lightboxImg.src = element.src;
+            lightboxImg.style.display = 'block';
+            lightboxCaption.textContent = element.alt || 'Hobby Photo';
+        }
+
         lightbox.style.display = 'flex';
-        // Force reflow for transition
         lightbox.offsetHeight;
         lightbox.classList.add('active');
         lightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        document.body.style.overflow = 'hidden';
     };
 
     const closeLightbox = () => {
         lightbox.classList.remove('active');
         lightbox.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+        lightboxVideo.pause();
         setTimeout(() => {
             lightbox.style.display = 'none';
-        }, 400); // Match CSS transition
+            lightboxVideo.src = ''; // Clear video source
+        }, 400);
     };
 
-    hobbyImages.forEach(img => {
-        img.addEventListener('click', () => openLightbox(img));
-        img.style.cursor = 'zoom-in';
+    albumSlots.forEach(slot => {
+        const content = slot.querySelector('img, video');
+        if (content) {
+            slot.addEventListener('click', () => openLightbox(content));
+            slot.style.cursor = 'zoom-in';
+        }
     });
 
     if (closeBtn) {
