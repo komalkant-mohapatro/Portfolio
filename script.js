@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
 
         const animateCursor = () => {
-            cursorX += (mouseX - cursorX) * 0.15;
-            cursorY += (mouseY - cursorY) * 0.15;
+            cursorX += (mouseX - cursorX) * 0.25;
+            cursorY += (mouseY - cursorY) * 0.25;
             cursor.style.left = cursorX + 'px';
             cursor.style.top = cursorY + 'px';
             requestAnimationFrame(animateCursor);
@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
             cursor.style.border = br;
         };
         document.querySelectorAll('a').forEach(l => {
-            l.addEventListener('mouseenter', () => linkHover(4, 'rgba(0,0,0,0.1)', '1px solid #000'));
-            l.addEventListener('mouseleave', () => linkHover(1, '#000', 'none'));
+            l.addEventListener('mouseenter', () => linkHover(4, 'rgba(255,255,255,0.1)', '1px solid rgba(255,255,255,0.5)'));
+            l.addEventListener('mouseleave', () => linkHover(1, '#fff', 'none'));
         });
         document.querySelectorAll('.skill-item, .project-item, .exp-item, .edu-item').forEach(i => {
             i.addEventListener('mouseenter', () => linkHover(2.5, 'rgba(0, 122, 255, 0.3)', '2px solid #007aff'));
@@ -58,21 +58,24 @@ document.addEventListener('DOMContentLoaded', () => {
     revealOnScroll();
 
     // ============================================================
-    //  PROJECT CARD TAP-TO-FLIP (Touch devices)
+    //  PROJECT CARD CLICK-TO-FLIP (All devices)
     // ============================================================
-    if (isTouchDevice) {
-        document.querySelectorAll('.project-item').forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Don't flip if tapping a link
-                if (e.target.closest('a')) return;
-                const inner = card.querySelector('.project-inner');
-                if (inner) {
-                    const isFlipped = inner.style.transform === 'rotateY(180deg)';
-                    inner.style.transform = isFlipped ? 'rotateY(0deg)' : 'rotateY(180deg)';
-                }
-            });
+    document.querySelectorAll('.project-view-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const card = btn.closest('.project-item');
+            card.classList.add('flipped');
         });
-    }
+    });
+
+    document.querySelectorAll('.project-back').forEach(back => {
+        back.addEventListener('click', (e) => {
+            if (!e.target.closest('.project-link')) {
+                const card = back.closest('.project-item');
+                card.classList.remove('flipped');
+            }
+        });
+    });
 
     // ============================================================
     //  GITHUB CONTRIBUTION CALENDAR (STRICTLY 2026)

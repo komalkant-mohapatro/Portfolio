@@ -695,7 +695,7 @@ p {
     transform-style: preserve-3d;
 }
 
-.project-item:hover .project-inner {
+.project-item.flipped .project-inner {
     transform: rotateY(180deg);
 }
 
@@ -747,6 +747,39 @@ p {
     background: rgba(0, 122, 255, 0.2);
     box-shadow: 0 0 20px rgba(0, 122, 255, 0.3);
     transform: scale(1.05);
+}
+
+/* View Button on Project Front */
+.project-view-btn {
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.8rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: inherit;
+    color: #fff;
+    background: rgba(0, 122, 255, 0.15);
+    border: 1px solid rgba(0, 122, 255, 0.4);
+    border-radius: 100px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.4s var(--transition-subtle);
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 5;
+    align-self: flex-start;
+}
+
+.project-view-btn:hover {
+    background: rgba(0, 122, 255, 0.3);
+    border-color: rgba(0, 212, 255, 0.6);
+    box-shadow: 0 0 25px rgba(0, 122, 255, 0.4), 0 0 60px rgba(0, 122, 255, 0.15);
+    transform: translateY(-2px);
+    color: #00d4ff;
+}
+
+.project-view-btn:active {
+    transform: scale(0.96);
 }
 
 .exp-item,
@@ -891,6 +924,45 @@ p {
 
 .links a:hover::after {
     width: 100%;
+}
+
+/* Contact Info (email / phone with emojis) */
+.contact-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.15rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    transition: all 0.4s var(--transition-subtle);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.contact-item:hover {
+    background: rgba(0, 122, 255, 0.1);
+    border-color: rgba(0, 122, 255, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2);
+    transform: translateY(-3px);
+    color: #00d4ff;
+}
+
+.contact-emoji {
+    font-size: 1.5rem;
+    filter: drop-shadow(0 0 6px rgba(0, 122, 255, 0.4));
 }
 
 /* Enhanced Reveal Animations */
@@ -1187,6 +1259,10 @@ p {
         transform: none;
     }
 
+    .project-item.flipped .project-inner {
+        transform: rotateY(180deg);
+    }
+
     .hobby-card:hover {
         transform: none;
     }
@@ -1381,6 +1457,17 @@ p {
         font-size: 1.05rem;
     }
 
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .contact-item {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+
     /* --- Lightbox --- */
     .lightbox-content {
         max-width: 95%;
@@ -1569,6 +1656,25 @@ p {
     /* --- Contact / Links --- */
     .links a {
         font-size: 1rem;
+    }
+
+    .contact-info {
+        gap: 0.75rem;
+    }
+
+    .contact-item {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+        border-radius: 12px;
+    }
+
+    .contact-emoji {
+        font-size: 1.2rem;
+    }
+
+    .project-view-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.4rem;
     }
 
     /* --- Section headings --- */
