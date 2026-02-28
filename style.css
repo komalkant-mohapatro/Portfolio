@@ -933,145 +933,228 @@ p {
 /*  HOBBIES SECTION                                         */
 /* ======================================================== */
 
-.hobby-block {
-    margin-bottom: 3.5rem;
+/* ======================================================== */
+/*  HOBBIES SECTION (REFINED: AUTO-SCROLL & GLOW)          */
+/* ======================================================== */
+
+.hobbies-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    perspective: 2000px;
+}
+
+.hobby-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 40px;
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    /* For the glow reveal */
+    transition: transform 0.8s var(--transition-subtle),
+        box-shadow 0.8s ease,
+        border-color 0.8s ease;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Mouse-following Glow Reveal */
+.hobby-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(0, 122, 255, 0.12),
+            transparent 40%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hobby-card:hover::before {
+    opacity: 1;
+}
+
+/* Border Beam / Glow Edge */
+.hobby-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 40px;
+    padding: 1px;
+    background: linear-gradient(135deg,
+            rgba(0, 122, 255, 0.5),
+            transparent 20%,
+            transparent 80%,
+            rgba(0, 212, 255, 0.5));
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.hobby-card:hover::after {
+    opacity: 1;
+    animation: border-beam 4s linear infinite;
+}
+
+@keyframes border-beam {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.hobby-card:hover {
+    border-color: rgba(0, 122, 255, 0.3);
+    transform: translateY(-5px);
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6),
+        0 0 50px rgba(0, 122, 255, 0.15);
 }
 
 .hobby-header {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
 }
 
 .hobby-icon {
-    font-size: 1.6rem;
-    line-height: 1;
+    font-size: 2.2rem;
+    filter: drop-shadow(0 0 15px rgba(0, 122, 255, 0.5));
 }
 
 .hobby-header h3 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text-color);
-    letter-spacing: -0.01em;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hobby-desc {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 1.25rem;
-    max-width: 55ch;
-}
-
-/* ---- Horizontal scroll album track ---- */
-.hobby-album-scroll {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
-    padding-bottom: 0.75rem;
-    border-radius: 16px;
-}
-
-.hobby-album-scroll::-webkit-scrollbar {
-    height: 4px;
-}
-
-.hobby-album-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 2px;
-}
-
-.hobby-album {
-    display: flex;
-    gap: 1rem;
-    width: max-content;
-    /* lets flex be wider than parent */
-    padding: 0.25rem 0.25rem 0.5rem;
-}
-
-/* Individual photo slot */
-.album-slot {
-    width: 240px;
-    height: 180px;
-    flex-shrink: 0;
-    border-radius: 16px;
-    border: 2px dashed rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
-    cursor: pointer;
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 3rem;
+    max-width: 65ch;
     position: relative;
-    user-select: none;
+    z-index: 1;
 }
 
-/* Vertical 3:4 ratio */
+/* Slider System (Refined) */
+.hobby-slider-wrapper {
+    width: 100%;
+    overflow: hidden;
+    padding: 1.5rem 0;
+    cursor: grab;
+    position: relative;
+    z-index: 1;
+}
+
+.hobby-slider-wrapper:active {
+    cursor: grabbing;
+}
+
+.hobby-slider {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    will-change: transform;
+}
+
+/* Album Slots (Refined) */
+.album-slot {
+    width: 320px;
+    height: 240px;
+    flex-shrink: 0;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.6s var(--transition-subtle);
+}
+
 .album-slot.vertical {
-    width: 210px;
-    height: 280px;
+    width: 250px;
+    height: 340px;
 }
 
-.album-slot:hover {
-    border-color: rgba(0, 122, 255, 0.5);
-    background: rgba(0, 122, 255, 0.06);
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 12px 32px rgba(0, 122, 255, 0.15);
-}
-
-/* Slot empty-state placeholder */
-.album-slot label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.25);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    pointer-events: none;
-    user-select: none;
-}
-
-.album-slot label::before {
-    content: '+';
-    display: block;
-    font-size: 2.5rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.15);
-    text-align: center;
-    margin-bottom: 0.3rem;
-    line-height: 1;
-}
-
-/* When an image/video is placed inside the slot */
 .album-slot img,
 .album-slot video {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 14px;
-    transition: transform 0.5s ease;
+    transition: transform 1s var(--transition-subtle);
 }
 
-.album-slot video {
-    pointer-events: none;
-    /* Let the slot handle the click */
+.album-slot:hover {
+    transform: scale(1.04) translateY(-8px);
+    z-index: 2;
+    border-color: rgba(0, 122, 255, 0.6);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(0, 122, 255, 0.3);
 }
 
 .album-slot:hover img,
 .album-slot:hover video {
-    transform: scale(1.05);
+    transform: scale(1.15);
 }
 
-/* Hide the placeholder when content is present */
-.album-slot img~label,
-.album-slot video[src]:not([src=""])~label {
+.slot-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 70%);
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.album-slot:hover .slot-overlay {
+    opacity: 1;
+}
+
+.slot-overlay span {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transform: translateY(15px);
+    transition: transform 0.5s var(--transition-subtle);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.album-slot:hover .slot-overlay span {
+    transform: translateY(0);
+}
+
+.hobby-slider-wrapper {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hobby-slider-wrapper::-webkit-scrollbar {
     display: none;
 }
 
