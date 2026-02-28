@@ -107,16 +107,6 @@ body {
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
 }
 
-@media (max-width: 768px) {
-    .social-bar {
-        padding: 0.6rem 1.2rem;
-        gap: 1rem;
-    }
-
-    .social-bar.top {
-        top: 1rem;
-    }
-}
 
 /* ---- Dynamic Orb Background ---- */
 .bg-orbs {
@@ -1159,31 +1149,108 @@ p {
 }
 
 
-@media (max-width: 600px) {
+/* ======================================================== */
+/*  TOUCH DEVICE FIXES                                      */
+/* ======================================================== */
+@media (hover: none),
+(pointer: coarse) {
+    * {
+        cursor: auto !important;
+    }
+
+    .cursor {
+        display: none !important;
+    }
+
+    .grain {
+        opacity: 0.03;
+    }
+
+    /* Show overlays always on touch (no hover available) */
+    .slot-overlay {
+        opacity: 1;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+    }
+
+    .slot-overlay span {
+        transform: translateY(0);
+    }
+
+    /* Disable lift/scale hover effects that feel broken on touch */
+    .skill-item:hover,
+    .exp-item:hover,
+    .edu-item:hover {
+        transform: none;
+    }
+
+    .project-item:hover .project-inner {
+        transform: none;
+    }
+
+    .hobby-card:hover {
+        transform: none;
+    }
+
+    .album-slot:hover {
+        transform: none;
+    }
+}
+
+/* ======================================================== */
+/*  LAPTOP (≤1024px)                                        */
+/* ======================================================== */
+@media (max-width: 1024px) {
     .wrapper {
-        padding: 2rem;
+        max-width: 100%;
     }
 
     h1 {
-        font-size: 4rem;
+        font-size: clamp(2.8rem, 8vw, 6rem);
     }
 
+    .hero-flex {
+        gap: clamp(1.5rem, 4vw, 4rem);
+        min-height: 70vh;
+    }
+
+    .profile-photo {
+        width: clamp(220px, 35vw, 450px);
+        height: clamp(220px, 35vw, 450px);
+    }
+
+    .hobby-card {
+        padding: 2.5rem;
+    }
+}
+
+/* ======================================================== */
+/*  TABLET (≤768px)                                         */
+/* ======================================================== */
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 1.5rem;
+    }
+
+    .section {
+        margin-bottom: var(--spacing);
+    }
+
+    /* --- Hero --- */
     .hero-flex {
         flex-direction: column-reverse;
         align-items: center;
         text-align: center;
         gap: 1.5rem;
+        min-height: auto;
+        margin-bottom: 2rem;
     }
 
     .profile-photo {
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
+        max-width: 80%;
         -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
         mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
-    }
-
-    .subtitle {
-        margin: 0 auto;
     }
 
     .hero-text {
@@ -1191,21 +1258,277 @@ p {
         text-align: center;
     }
 
-    .hero-text .subtitle,
-    .hero-text .hero-description {
+    h1 {
+        font-size: clamp(2.5rem, 10vw, 4.5rem);
         margin-left: 0;
-        margin-top: 0.5rem;
-        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .subtitle {
+        margin-left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        font-size: 1.25rem;
         max-width: 100%;
     }
 
-    .hero-text .subtitle {
+    .hero-description {
+        margin-left: 0;
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    /* --- Skills --- */
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .skill-item {
+        padding: 1.75rem;
+        border-radius: 16px;
+    }
+
+    /* --- Projects --- */
+    .project-item {
+        height: 250px;
+    }
+
+    .project-front,
+    .project-back {
+        padding: 2rem;
+        border-radius: 16px;
+    }
+
+    /* --- Experience --- */
+    .exp-item,
+    .edu-item {
+        padding: 1.75rem;
+        border-radius: 16px;
+    }
+
+    /* --- Hobbies --- */
+    .hobbies-container {
+        gap: 3rem;
+    }
+
+    .hobby-card {
+        padding: 2rem;
+        border-radius: 24px;
+    }
+
+    .hobby-header h3 {
+        font-size: 1.6rem;
+    }
+
+    .hobby-desc {
+        margin-bottom: 2rem;
+        font-size: 1rem;
+    }
+
+    .album-slot {
+        width: 240px;
+        height: 180px;
+        border-radius: 16px;
+    }
+
+    .album-slot.vertical {
+        width: 190px;
+        height: 260px;
+    }
+
+    .hobby-slider {
+        gap: 1.25rem;
+    }
+
+    /* --- GitHub Calendar --- */
+    .calendar-container {
+        padding: 1.25rem;
+        border-radius: 14px;
+    }
+
+    .calendar-months span {
+        font-size: 0.65rem;
+    }
+
+    .calendar-legend {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* --- Social Bar --- */
+    .social-bar {
+        padding: 0.6rem 1.2rem;
+        gap: 1rem;
+    }
+
+    .social-bar.top {
+        top: 1rem;
+    }
+
+    .social-bar.bottom {
+        margin-bottom: 2rem;
+    }
+
+    /* --- Contact / Links --- */
+    .links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+    }
+
+    .links a {
+        font-size: 1.05rem;
+    }
+
+    /* --- Lightbox --- */
+    .lightbox-content {
+        max-width: 95%;
+    }
+
+    .close-lightbox {
+        top: 1rem;
+        right: 1.5rem;
+    }
+}
+
+/* ======================================================== */
+/*  PHONE (≤480px)                                          */
+/* ======================================================== */
+@media (max-width: 480px) {
+    :root {
+        --spacing: 2rem;
+    }
+
+    .wrapper {
+        padding: 1.2rem;
+    }
+
+    /* --- Hero --- */
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    .profile-photo {
+        width: 160px;
+        height: 160px;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+        margin-top: 1rem;
+    }
+
+    .hero-description {
+        font-size: 0.95rem;
+    }
+
+    /* --- Skills --- */
+    .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .skill-item {
+        padding: 1.5rem;
+        border-radius: 14px;
+    }
+
+    .skill-item h3 {
+        font-size: 1.15rem;
+    }
+
+    /* --- Projects --- */
+    .project-item {
+        height: 220px;
+    }
+
+    .project-front,
+    .project-back {
+        padding: 1.5rem;
+        border-radius: 14px;
+    }
+
+    .project-front h3 {
         font-size: 1.25rem;
     }
 
-    /* Responsive GitHub Calendar */
-    .calendar-container {
+    .project-front p {
+        font-size: 0.95rem;
+    }
+
+    .project-link {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    /* --- Experience --- */
+    .exp-item,
+    .edu-item {
+        padding: 1.5rem;
+        border-radius: 14px;
+    }
+
+    .exp-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+
+    /* --- Hobbies --- */
+    .hobbies-container {
+        gap: 2rem;
+    }
+
+    .hobby-card {
+        padding: 1.25rem;
+        border-radius: 18px;
+    }
+
+    .hobby-card::after {
+        border-radius: 18px;
+    }
+
+    .hobby-header h3 {
+        font-size: 1.4rem;
+    }
+
+    .hobby-icon {
+        font-size: 1.8rem;
+    }
+
+    .hobby-desc {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hobby-slider {
+        gap: 1rem;
+    }
+
+    .album-slot {
+        width: 200px;
+        height: 150px;
+        border-radius: 12px;
+    }
+
+    .album-slot.vertical {
+        width: 160px;
+        height: 220px;
+    }
+
+    .slot-overlay {
         padding: 1rem;
+    }
+
+    .slot-overlay span {
+        font-size: 0.8rem;
+    }
+
+    /* --- GitHub Calendar --- */
+    .calendar-container {
+        padding: 0.75rem;
+        border-radius: 12px;
     }
 
     .calendar-days {
@@ -1214,7 +1537,7 @@ p {
     }
 
     .calendar-months span {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
     }
 
     .calendar-legend {
@@ -1226,6 +1549,50 @@ p {
     .legend-item {
         width: 10px;
         height: 10px;
+    }
+
+    /* --- Social Bar --- */
+    .social-bar {
+        gap: 0.8rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .social-bar a svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .social-bar.bottom {
+        margin-bottom: 1.5rem;
+    }
+
+    /* --- Contact / Links --- */
+    .links a {
+        font-size: 1rem;
+    }
+
+    /* --- Section headings --- */
+    h2 {
+        font-size: 0.75rem;
+        margin-bottom: 2rem;
+    }
+
+    /* --- Lightbox --- */
+    .lightbox-content img,
+    .lightbox-content video {
+        max-height: 70vh;
+        border-radius: 8px;
+    }
+
+    .close-lightbox {
+        top: 0.75rem;
+        right: 1rem;
+        font-size: 2.5rem;
+    }
+
+    #lightbox-caption {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
     }
 }
 
@@ -1303,15 +1670,4 @@ p {
 .close-lightbox:hover {
     color: #ff4d4d;
     transform: rotate(90deg);
-}
-
-@media (max-width: 768px) {
-    .lightbox-content {
-        max-width: 95%;
-    }
-
-    .close-lightbox {
-        top: 1rem;
-        right: 1.5rem;
-    }
 }
