@@ -394,7 +394,39 @@ h3 {
     color: #007aff;
     font-weight: 700;
     text-shadow: 0 0 8px rgba(0, 122, 255, 0.3);
-    display: inline;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.pencil-underline {
+    position: absolute;
+    bottom: -6px;
+    left: -2%;
+    width: 104%;
+    height: 16px;
+    z-index: -1;
+    color: #007aff;
+    pointer-events: none;
+    overflow: visible;
+    filter: drop-shadow(0 0 4px rgba(0, 122, 255, 0.4));
+}
+
+.reveal.active .pencil-underline path {
+    stroke-dasharray: 250;
+    stroke-dashoffset: 250;
+    animation: drawPencilLine 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0.6s;
+}
+
+.reveal.active .pencil-underline path:nth-child(2) {
+    animation-delay: 0.8s;
+}
+
+@keyframes drawPencilLine {
+    to {
+        stroke-dashoffset: 0;
+    }
 }
 
 p {
