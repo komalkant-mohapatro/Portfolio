@@ -1694,3 +1694,61 @@ p {
     color: #ff4d4d;
     transform: rotate(90deg);
 }
+
+/* ======================================================== */
+/*  SUBTLE ANIMATIONS & REVEALS                             */
+/* ======================================================== */
+
+/* 1. Scroll Reveals */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Add slight delays for child reveals (optional stagger) */
+.section h2.reveal.active {
+    transition-delay: 0.1s;
+}
+
+.project-item.reveal.active {
+    transition-delay: 0.2s;
+}
+
+.skill-item.reveal.active {
+    transition-delay: 0.2s;
+}
+
+/* 2. Pulsing CTA Button Animation */
+@keyframes softPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4);
+    }
+
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 20px 0 rgba(0, 212, 255, 0.2);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(0, 212, 255, 0);
+    }
+}
+
+.project-view-btn {
+    animation: softPulse 3s infinite ease-in-out;
+}
+
+.project-view-btn:hover {
+    animation: none;
+    /* Stop pulse on hover, let normal hover CSS take over */
+}
