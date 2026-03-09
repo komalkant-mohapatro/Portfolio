@@ -347,50 +347,97 @@ h3 {
     margin-bottom: 1.25rem;
 }
 
-.about-detail {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.7;
-    max-width: 60ch;
+/* Bento Grid Layout */
+.about-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
     margin-bottom: 2.5rem;
 }
 
-.about-stats {
+.bento-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.5s var(--transition-subtle);
     display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: left;
+}
+
+.bento-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.bento-card.interests {
+    padding-bottom: 1.5rem;
+}
+
+.bento-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 122, 255, 0.4);
+    box-shadow: 0 10px 30px rgba(0, 122, 255, 0.15);
+}
+
+.bento-icon {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+}
+
+.bento-card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+.bento-card p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.5rem;
 }
 
 .stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
-    padding: 1.25rem 2rem;
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    transition: all 0.5s var(--transition-subtle);
-    min-width: 120px;
+    gap: 0.2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    transition: all 0.4s var(--transition-subtle);
 }
 
 .stat-item:hover {
-    border-color: rgba(0, 122, 255, 0.5);
-    background: rgba(0, 122, 255, 0.08);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(0, 122, 255, 0.2);
+    background: rgba(0, 122, 255, 0.1);
+    border-color: rgba(0, 122, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 .stat-number {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #007aff, #00d4ff);
+    color: #fff;
+    background: linear-gradient(135deg, #fff 0%, #007aff 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    line-height: 1;
+    line-height: 1.1;
 }
 
 .stat-label {
@@ -399,6 +446,137 @@ h3 {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: rgba(255, 255, 255, 0.5);
+}
+
+/* Interest Tags */
+.interest-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.interest-tag {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 122, 255, 0.08);
+    border: 1px solid rgba(0, 122, 255, 0.2);
+    border-radius: 100px;
+    transition: all 0.4s var(--transition-subtle);
+    cursor: default;
+}
+
+.interest-tag:hover {
+    background: rgba(0, 122, 255, 0.15);
+    border-color: rgba(0, 122, 255, 0.5);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 122, 255, 0.25);
+}
+
+/* ======================================================== */
+/*  MINI SOLAR SYSTEM ANIMATION (inside project card)       */
+/* ======================================================== */
+
+.mini-solar-system {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 110px;
+    height: 110px;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;
+    height: 14px;
+    background: radial-gradient(circle, #ffd700, #ff8c00);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 25px rgba(255, 140, 0, 0.3);
+    z-index: 2;
+}
+
+.orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orbit-1 {
+    width: 36px;
+    height: 36px;
+    animation: orbitSpin 3s linear infinite;
+}
+
+.orbit-2 {
+    width: 56px;
+    height: 56px;
+    animation: orbitSpin 5s linear infinite;
+}
+
+.orbit-3 {
+    width: 78px;
+    height: 78px;
+    animation: orbitSpin 8s linear infinite;
+}
+
+.orbit-4 {
+    width: 102px;
+    height: 102px;
+    animation: orbitSpin 12s linear infinite;
+}
+
+.planet {
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+}
+
+.planet-1 {
+    width: 5px;
+    height: 5px;
+    background: #b0b0b0;
+    box-shadow: 0 0 4px rgba(176, 176, 176, 0.5);
+}
+
+.planet-2 {
+    width: 7px;
+    height: 7px;
+    background: #4da6ff;
+    box-shadow: 0 0 6px rgba(77, 166, 255, 0.5);
+}
+
+.planet-3 {
+    width: 6px;
+    height: 6px;
+    background: #ff6347;
+    box-shadow: 0 0 6px rgba(255, 99, 71, 0.4);
+}
+
+.planet-4 {
+    width: 9px;
+    height: 9px;
+    background: #e8a95b;
+    box-shadow: 0 0 8px rgba(232, 169, 91, 0.4);
+}
+
+@keyframes orbitSpin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 
@@ -1642,9 +1820,17 @@ p {
         justify-content: center;
     }
 
-    .about-intro,
-    .about-detail {
+    .about-intro {
         max-width: 100%;
+        margin-bottom: 2rem;
+    }
+
+    .about-bento-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-stats {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     /* --- Hobbies --- */
