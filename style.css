@@ -1797,36 +1797,45 @@ p {
 
     /* --- About --- */
     .about-container {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
+        flex-direction: row;
+        align-items: flex-start;
+        text-align: left;
+        gap: 1.5rem;
     }
 
     .about-photo-wrapper {
-        position: relative;
-        top: auto;
+        position: sticky;
+        top: 6rem;
+    }
+
+    .about-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .about-photo-ring {
+        width: 115px;
+        height: 115px;
     }
 
     .about-text {
-        text-align: center;
+        text-align: left;
     }
 
     .about-text h2::before {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .about-stats {
-        justify-content: center;
+        left: 0;
+        transform: none;
     }
 
     .about-intro {
         max-width: 100%;
         margin-bottom: 2rem;
+        font-size: 1.1rem;
     }
 
     .about-bento-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
 
     .about-stats {
@@ -2038,35 +2047,55 @@ p {
     }
 
     /* --- About (Phone) --- */
+    .about-container {
+        gap: 1rem;
+    }
+
     .about-photo {
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 80px;
     }
 
     .about-photo-ring {
-        width: 140px;
-        height: 140px;
+        width: 92px;
+        height: 92px;
     }
 
     .about-intro {
-        font-size: 1.05rem;
-    }
-
-    .about-detail {
         font-size: 0.95rem;
     }
 
-    .stat-item {
-        padding: 1rem 1.5rem;
-        min-width: 90px;
+    .about-bento-grid {
+        gap: 0.75rem;
     }
 
-    .stat-number {
+    .bento-card {
+        padding: 1rem;
+    }
+
+    .bento-icon {
         font-size: 1.5rem;
     }
 
+    .bento-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .bento-card p {
+        font-size: 0.8rem;
+    }
+
+    .stat-item {
+        padding: 0.75rem;
+        min-width: auto;
+    }
+
+    .stat-number {
+        font-size: 1.25rem;
+    }
+
     .stat-label {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
     }
 
     /* --- Hobbies --- */
