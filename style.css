@@ -1705,6 +1705,17 @@ p {
         margin-bottom: var(--spacing);
     }
 
+    .social-bar.top {
+        top: 1rem;
+        padding: 0.6rem 1.5rem;
+        gap: 1rem;
+    }
+
+    .social-bar a svg {
+        width: 18px;
+        height: 18px;
+    }
+
     /* --- Hero --- */
     .hero-flex {
         flex-direction: column-reverse;
@@ -1712,13 +1723,14 @@ p {
         text-align: center;
         gap: 1.5rem;
         min-height: auto;
+        margin-top: 6rem;
         margin-bottom: 2rem;
     }
 
     .profile-photo {
-        width: 250px;
-        height: 250px;
-        max-width: 80%;
+        width: 220px;
+        height: 220px;
+        max-width: 70%;
         -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
         mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
     }
@@ -1809,13 +1821,13 @@ p {
     }
 
     .about-photo {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
     }
 
     .about-photo-ring {
-        width: 90px;
-        height: 90px;
+        width: 115px;
+        height: 115px;
     }
 
     .about-text {
@@ -2047,66 +2059,41 @@ p {
     }
 
     /* --- About (Phone) --- */
+    /* --- About (Phone) --- */
+    /* --- About (Phone) --- */
     .about-container {
-        gap: 0.75rem;
+        gap: 1rem;
     }
 
     .about-photo {
-        width: 60px;
-        height: 60px;
+        width: 80px;
+        height: 80px;
     }
 
     .about-photo-ring {
-        width: 70px;
-        height: 70px;
+        width: 92px;
+        height: 92px;
     }
 
     .about-intro {
-        font-size: 0.85rem;
-        line-height: 1.5;
+        font-size: 1.05rem;
     }
 
-    .about-bento-grid {
-        gap: 0.5rem;
-    }
-
-    .bento-card {
-        padding: 0.75rem;
-        border-radius: 12px;
-    }
-
-    .bento-icon {
-        font-size: 1.25rem;
-    }
-
-    .bento-card h3 {
-        font-size: 0.75rem;
-    }
-
-    .bento-card p {
-        font-size: 0.7rem;
+    .about-detail {
+        font-size: 0.95rem;
     }
 
     .stat-item {
-        padding: 0.5rem;
-        border-radius: 8px;
+        padding: 1rem 1.5rem;
+        min-width: 90px;
     }
 
     .stat-number {
-        font-size: 1.1rem;
+        font-size: 1.5rem;
     }
 
     .stat-label {
-        font-size: 0.5rem;
-    }
-
-    .interest-tags {
-        gap: 0.4rem;
-    }
-
-    .interest-tag {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
     }
 
     /* --- Hobbies --- */
