@@ -1800,7 +1800,7 @@ p {
         flex-direction: row;
         align-items: flex-start;
         text-align: left;
-        gap: 1.5rem;
+        gap: 1rem;
     }
 
     .about-photo-wrapper {
@@ -1809,13 +1809,13 @@ p {
     }
 
     .about-photo {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
     }
 
     .about-photo-ring {
-        width: 115px;
-        height: 115px;
+        width: 90px;
+        height: 90px;
     }
 
     .about-text {
@@ -1829,13 +1829,13 @@ p {
 
     .about-intro {
         max-width: 100%;
-        margin-bottom: 2rem;
-        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
     }
 
     .about-bento-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .about-stats {
@@ -2048,54 +2048,65 @@ p {
 
     /* --- About (Phone) --- */
     .about-container {
-        gap: 1rem;
-    }
-
-    .about-photo {
-        width: 80px;
-        height: 80px;
-    }
-
-    .about-photo-ring {
-        width: 92px;
-        height: 92px;
-    }
-
-    .about-intro {
-        font-size: 0.95rem;
-    }
-
-    .about-bento-grid {
         gap: 0.75rem;
     }
 
+    .about-photo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .about-photo-ring {
+        width: 70px;
+        height: 70px;
+    }
+
+    .about-intro {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .about-bento-grid {
+        gap: 0.5rem;
+    }
+
     .bento-card {
-        padding: 1rem;
+        padding: 0.75rem;
+        border-radius: 12px;
     }
 
     .bento-icon {
-        font-size: 1.5rem;
-    }
-
-    .bento-card h3 {
-        font-size: 0.9rem;
-    }
-
-    .bento-card p {
-        font-size: 0.8rem;
-    }
-
-    .stat-item {
-        padding: 0.75rem;
-        min-width: auto;
-    }
-
-    .stat-number {
         font-size: 1.25rem;
     }
 
+    .bento-card h3 {
+        font-size: 0.75rem;
+    }
+
+    .bento-card p {
+        font-size: 0.7rem;
+    }
+
+    .stat-item {
+        padding: 0.5rem;
+        border-radius: 8px;
+    }
+
+    .stat-number {
+        font-size: 1.1rem;
+    }
+
     .stat-label {
-        font-size: 0.6rem;
+        font-size: 0.5rem;
+    }
+
+    .interest-tags {
+        gap: 0.4rem;
+    }
+
+    .interest-tag {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.65rem;
     }
 
     /* --- Hobbies --- */
