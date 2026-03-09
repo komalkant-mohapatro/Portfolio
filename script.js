@@ -1,158 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ============================================================
-    //  INTERACTIVE COSMIC CANVAS BACKGROUND
-    // ============================================================
-    const canvas = document.getElementById('bg-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-        let mouse = { x: null, y: null, radius: 150 };
-
-        const resize = () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-            initParticles();
-        };
-
-        window.addEventListener('resize', resize);
-        document.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-        document.addEventListener('mouseleave', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
-        class AntigravityDash {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                // Properties for dash rendering (Very small as requested)
-                this.length = Math.random() * 3 + 1.5;
-                this.thickness = Math.random() * 0.8 + 0.5;
-                // Orbital mechanics
-                let centerX = width / 2;
-                let centerY = height / 2;
-                this.radius = Math.sqrt(Math.pow(this.x - centerX, 2) + Math.pow(this.y - centerY, 2));
-                this.angle = Math.atan2(this.y - centerY, this.x - centerX);
-                // Speed depends inversely on distance from center to mimic a galaxy/vortex
-                this.angularVelocity = (Math.random() * 0.001 + 0.0005) * (1500 / Math.max(this.radius, 100));
-
-                // Track base position to allow elasticity against mouse
-                this.baseRadius = this.radius;
-            }
-
-            getColor(opacity) {
-                // Map X position to Hue. Left side: Blues (220), Right side: Reds/Yellows (0 - 60)
-                let normalizedX = this.x / width;
-
-                // Color curve:
-                // 0.0 -> Blue (200)
-                // 1.0 -> Yellow/Orange (30 - 50)
-                let hue = 200 - (normalizedX * 180);
-                if (hue < 0) hue += 360;
-
-                let saturation = 90 + Math.random() * 10;
-                let lightness = 55 + Math.random() * 15;
-                return `hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity})`;
-            }
-
-            update() {
-                let centerX = width / 2;
-                let centerY = height / 2;
-                let opacity = 0; // Default invisible
-
-                // Advance orbit
-                this.angle += this.angularVelocity;
-
-                // Return slowly to base orbit
-                if (this.radius !== this.baseRadius) {
-                    this.radius += (this.baseRadius - this.radius) * 0.05;
-                }
-
-                // Mouse Interaction and Visibility
-                let actualX = centerX + Math.cos(this.angle) * this.radius;
-                let actualY = centerY + Math.sin(this.angle) * this.radius;
-
-                if (mouse.x != null) {
-                    let dx = mouse.x - actualX;
-                    let dy = mouse.y - actualY;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    let visibilityRadius = 250; // Visible within 250px of cursor
-
-                    if (distance < visibilityRadius) {
-                        // Fade out smoothly towards the edge of the radius
-                        opacity = 1 - (distance / visibilityRadius);
-                        // Apply easing to make it glow stronger near the center
-                        opacity = Math.pow(opacity, 1.5);
-
-                        // Gentle Repulsion
-                        if (distance < mouse.radius) {
-                            let force = (mouse.radius - distance) / mouse.radius;
-                            // Push radius outwards slightly
-                            this.radius += force * 5;
-                        }
-                    }
-                }
-
-                // Recalculate physical position
-                this.x = centerX + Math.cos(this.angle) * this.radius;
-                this.y = centerY + Math.sin(this.angle) * this.radius;
-
-                // Only draw if visible to save performance
-                if (opacity > 0.01) {
-                    this.draw(opacity);
-                }
-            }
-
-            draw(opacity) {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-
-                // Tangential alignment: orbit angle + 90 degrees (Math.PI/2)
-                ctx.rotate(this.angle + Math.PI / 2);
-
-                ctx.beginPath();
-                ctx.moveTo(0, -this.length / 2);
-                ctx.lineTo(0, this.length / 2);
-
-                ctx.strokeStyle = this.getColor(opacity);
-                ctx.lineWidth = this.thickness;
-                ctx.lineCap = 'round';
-                ctx.stroke();
-
-                ctx.restore();
-            }
-        }
-
-        const initParticles = () => {
-            particles = [];
-            // High particle count to form a lush swirl
-            const numParticles = Math.floor((width * height) / 4000);
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new AntigravityDash());
-            }
-        };
-
-        const animateCanvas = () => {
-            // Because particles are only visible near the mouse, we can fully clear 
-            // the canvas without needing the dark trail effect overlay.
-            ctx.clearRect(0, 0, width, height);
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-            }
-            requestAnimationFrame(animateCanvas);
-        };
-
-        resize();
-        animateCanvas();
-    }
-
     // Trigger staggered cinematic text reveal on load
     setTimeout(() => {
         document.body.classList.add('ready');
@@ -195,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             l.addEventListener('mouseenter', () => linkHover(4, 'rgba(255,255,255,0.1)', '1px solid rgba(255,255,255,0.5)'));
             l.addEventListener('mouseleave', () => linkHover(1, '#fff', 'none'));
         });
-        document.querySelectorAll('.skill-item, .project-item, .exp-item, .edu-item').forEach(i => {
+        document.querySelectorAll('.skill-item, .project-item, .timeline-content, .edu-item').forEach(i => {
             i.addEventListener('mouseenter', () => linkHover(2.5, 'rgba(0, 122, 255, 0.3)', '2px solid #007aff'));
             i.addEventListener('mouseleave', () => linkHover(1, '#fff', 'none'));
         });
@@ -215,6 +62,57 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll();
+
+    // ============================================================
+    //  SCROLL-DRIVEN HERO PHOTO ANIMATION
+    // ============================================================
+    const heroSection = document.querySelector('.intro');
+    const heroPhoto = document.querySelector('.profile-photo');
+    const aboutPhoto = document.querySelector('.about-photo-wrapper');
+
+    if (heroSection && heroPhoto && aboutPhoto) {
+        const handlePhotoScroll = () => {
+            const heroRect = heroSection.getBoundingClientRect();
+            const heroH = heroSection.offsetHeight;
+            const scrolled = -heroRect.top;
+            const progress = Math.max(0, Math.min(1, scrolled / (heroH * 0.7)));
+
+            // Scale down from 1 to 0 as you scroll past hero
+            const scale = 1 - progress * 0.6;
+            const opacity = 1 - progress;
+            heroPhoto.style.transform = `scale(${scale})`;
+            heroPhoto.style.opacity = opacity;
+
+            // Show/hide the about section photo
+            if (progress > 0.5) {
+                aboutPhoto.classList.add('active');
+            }
+        };
+
+        window.addEventListener('scroll', handlePhotoScroll, { passive: true });
+        handlePhotoScroll();
+    }
+
+    // ============================================================
+    //  TIMELINE LINE DRAW ON SCROLL
+    // ============================================================
+    const timelineLine = document.querySelector('.timeline-line');
+    const timeline = document.querySelector('.timeline');
+
+    if (timelineLine && timeline) {
+        const handleTimelineScroll = () => {
+            const rect = timeline.getBoundingClientRect();
+            const timelineH = timeline.offsetHeight;
+            const viewH = window.innerHeight;
+            const scrolled = viewH - rect.top;
+            const progress = Math.max(0, Math.min(1, scrolled / (timelineH + viewH * 0.3)));
+            timelineLine.style.transform = `translateX(-50%) scaleY(${progress})`;
+            timelineLine.style.transformOrigin = 'top';
+        };
+
+        window.addEventListener('scroll', handleTimelineScroll, { passive: true });
+        handleTimelineScroll();
+    }
 
     // ============================================================
     //  PROJECT CARD CLICK-TO-FLIP (All devices)
